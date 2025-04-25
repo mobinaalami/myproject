@@ -1,7 +1,8 @@
 #include <iostream>
+#include <string.h>
 using namespace std;
 
-class student {
+class Student {
     string name;
     string email;
     int user_id;
@@ -31,4 +32,5 @@ class student {
         bool get_is_active () const {
             return is_active; }
 
+        void print () const;
 };

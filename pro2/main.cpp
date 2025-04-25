@@ -1,5 +1,7 @@
 #include <iostream>
-#include <string.h>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 class DiningHall {
@@ -28,6 +30,55 @@ public:
 
     void print() const {
         cout << endl << " ( Dining Hall ) \n" << "- Hall ID: " << hall_id << "\n- name: " << name << "\n- address: " << address << "\n- capacity: " << capacity << endl; }
+};
+
+
+    enum MealType { BREAKFAST, LUNCH, DINNER, SNACK };
+
+class Meal {
+    int meal_id;
+    string name;
+    float price;
+    MealType meal_type;
+    vector <string> side_items;
+
+public:
+    Meal (int id, const string &meal_name, float meal_price, MealType type) {
+        meal_id = id;
+        name = meal_name;
+        price = meal_price;
+        meal_type = type;
+    }
+
+    void set_price (float new_price) {
+        if (new_price > 0)
+            price = new_price;
+        else
+            cout << " Invalid price! " << endl;
+    }
+    void set_meal_type (MealType new_type) { meal_type = new_tupe; }
+
+    int get_meal_id () const { return meal_id; }
+    string gat_name () const { return name; }
+    float gat_price () const { return price; }
+    MealType get_meal_type () const { return meal_type; }
+    vector <string> get_side_items () const { return side_items; }
+
+    void add_side_item (const string &item) { side_items.push_back(item); }
+
+    void print () const {
+        cout << " Meal ID: " << meal_id
+             << "\n Name: " << name
+             << "\n Price: " << price
+             << "\n Type: " << (meal_type == BREAKFAST ? "Breakfast" :
+                                meal_type == LUNCH ? "Lunch" :
+                                meal_type == DINNER ? "Dinner" : "snack")
+             << "\n Side Item: ";
+        for (const auto& item : side_items) {
+            cout << item << ", ";
+        }
+        cout << endl;
+    }
 };
 
 
