@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctime>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ public:
 };
 
 
-    enum MealType { BREAKFAST, LUNCH, DINNER, SNACK };
+enum MealType { BREAKFAST, LUNCH, DINNER, SNACK };
 
 class Meal {
     int meal_id;
@@ -78,6 +79,51 @@ public:
             cout << item << ", ";
         }
         cout << endl;
+    }
+};
+
+
+enum ReservationStatus { SUCCESS, CANCELLED, FAILD };
+
+class Reservation {
+    int reservation_id;
+    int student_id;
+    int meal_id;
+    int hall_id;
+    time_t created_at;
+    ReservationStatus status;
+
+public:
+    Reservation (int res_id, int s_id, int m_id, int h_id) : reservation_id(res_id), student_id(s_id), meal_id(m_id), hall_id(h_id), status(SUCCESS) {
+        created_at = time(0);
+    }
+
+    void set_student_id (int s_id) { student_id = s_id; }
+    void set_meal_id (int m_id) { meal_id = m_id; }
+    void set_hall_id (int h_id) { hall_id = h_id; }
+    void set_status (ReservationStatus new_statuse) { status = new_status; }
+
+    int get_student_id () const { return student_id; }
+    int get_meal_id () const { return meal_id; }
+    int get_hall_id () const { return hall_id; }
+    time_t get_created_at () const { return created_at; }
+    ReservationStatus get_status () const { return status; }
+
+    void cancel() {
+        if (status = CANCELLED) {
+            cout << " This reservation has already been cancelled! " << endl;
+        } else {
+            status = CANCELLED;
+            cout << " Reservation cancelled sucessfully. " << endl;
+        }
+    }
+    void print () const {
+        cout << " Reservation ID: " << reservation_id
+             << "\n Student ID: " << student_id
+             << "\n Meal ID: " << meal_id
+             << "\n Dining Hall ID: " << hall_id
+             << "\n Created At: " << ctime(&created_at)
+             << "\n Status: " << (status == SUCCESS ? "SUCCESS" : status == CANCELLED ? "CANCELLD" : "FAILD" ) << endl;
     }
 };
 
@@ -131,7 +177,7 @@ void Student :: set_user_id (int UserId){
     cout << " Please enter your User ID " << endl << " (it can be 14 numbers): ";
     cin >> UserId;
     while (1) {
-    int n = UserId.length();//
+       int n = UserId.length();//
        if (n >= 9 || n <= 14)
          user_id = UserId;
        else
@@ -147,14 +193,24 @@ void Student :: set_balance (float StudentBalance) {
     if (SudentBalance >= 0.0)
         balance = SudentBalance;
     else
-        cout << " ( Invalid balance amout ! ) " << endl; }
+        cout << " ( Invalid balance amout! ) " << endl; }
 
 void Student :: set_email (string StudentEmail) {
-    cout << " Please enter your gmaile (like: local-part@domain) " << endl;
+    cout << " Please enter your Gmail (like: reza.abbasi92@gmail.com) " << endl;
     cin >> StudentEmail;
 
-    if
-        for (int i=0; i < )
+    while (1) {
+        int n = StudentEmail.length();
+        for (int i = 0; i < n; i++) {
+            if ( (StudentEmail[i] >= 'a') || (StudentEmail[i] =< 'z') ||
+                 (StudentEmail[i] >= 'A') || (StudentEmail[i] =< 'Z') ||
+                 ((StudentEmail[i] >= 0) && (StudentEmail[i] =< 9)) ||
+                 (StudentEmail[i]== '@') || (StudentEmail[i] == '.' ) ) {
+               set_email(StudentEmail); }
+            else
+               cout <<  " (Email is not true!) Please enter a true Email: ";
+               cin >> StudentEmail; }
+    }
 }
 void :: Student :: set_is_active (bool isactive) {
     is_active = isactive; }
